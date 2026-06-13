@@ -22,8 +22,8 @@ python server.py
 
 ## Открыть сайт
 
-Сайт опубликован и доступен по адресу:  
-**https://melik11.github.io/SiteOnOff/**
+Сайт станет доступен по адресу:  
+**http://localhost:8000**
 
 ---
 
@@ -43,15 +43,10 @@ python server.py
 
 **Включить:**
 
-    https://melik11.github.io/SiteOnOff/?status=on
+    http://localhost:8000/?status=on
 
 **Выключить:**
 
-    https://melik11.github.io/SiteOnOff/?status=off
+    http://localhost:8000/?status=off
 
----
-
-## Локальный запуск
-
-Для запуска проекта на локальном компьютере:
 
