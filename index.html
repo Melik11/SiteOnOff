@@ -1,121 +1,31 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Страница статуса системы с управлением через URL-параметры">
-  <title>Статус системы</title>
+  <title>Статус</title>
   <style>
-    :root {
-      --bg: #0f172a;
-      --text: #f8fafc;
-      --badge-on: #10b981;
-      --badge-off: #ef4444;
-      --badge-unknown: #64748b;
-      --shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-      --radius: 9999px;
-      --font: system-ui, -apple-system, sans-serif;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: var(--font);
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem;
-    }
-
-    .container { text-align: center; }
-
-    h1 {
-      font-weight: 600;
-      margin-bottom: 1.5rem;
-      font-size: clamp(1.5rem, 4vw, 2rem);
-    }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.75rem;
-      padding: 0.875rem 1.5rem;
-      background: var(--badge-unknown);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      font-size: 1.125rem;
-      font-weight: 600;
-      transition: background 0.3s ease, transform 0.15s ease;
-    }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.85);
-      box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
-    }
-
-    .badge[data-state="on"] { background: var(--badge-on); }
-    .badge[data-state="off"] { background: var(--badge-off); }
-
-    .badge[data-state="on"] .dot { animation: pulse 2s infinite; }
-
-    .hint {
-      margin-top: 1.5rem;
-      font-size: 0.85rem;
-      opacity: 0.6;
-      line-height: 1.5;
-    }
-
-    .hint code {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 0.2em 0.4em;
-      border-radius: 4px;
-      font-family: ui-monospace, monospace;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.5; transform: scale(0.85); }
-    }
+    body { font-family: sans-serif; text-align: center; padding: 50px; }
+    .badge { padding: 20px 40px; border-radius: 50px; font-size: 20px; color: white; }
+    .on { background: #10b981; }
+    .off { background: #ef4444; }
+    .unknown { background: #64748b; }
   </style>
 </head>
 <body>
-  <main class="container">
-    <h1>Статус системы</h1>
-    <div class="badge" id="statusBadge" data-state="unknown">
-      <span class="dot"></span>
-      <span id="statusLabel">Не задано</span>
-    </div>
-    <p class="hint">
-      Управление: <code>?status=on</code> или <code>?status=off</code>
-    </p>
-  </main>
+  <h1>Статус системы</h1>
+  <div class="badge unknown" id="status">Не задано</div>
 
   <script>
-    (function initStatus() {
-      'use strict';
-      const badge = document.getElementById('statusBadge');
-      const label = document.getElementById('statusLabel');
-
-      // Читаем параметр, убираем пробелы, приводим к нижнему регистру
-      const raw = new URLSearchParams(location.search).get('status')?.trim().toLowerCase();
-
-      if (raw === 'on' || raw === 'вкл' || raw === 'включен') {
-        badge.dataset.state = 'on';
-        label.textContent = 'ON';
-      } else if (raw === 'off' || raw === 'выкл' || raw === 'выключен') {
-        badge.dataset.state = 'off';
-        label.textContent = 'OFF';
-      } else {
-        badge.dataset.state = 'unknown';
-        label.textContent = 'Не задано';
-      }
-    })();
+    const status = new URLSearchParams(location.search).get('status');
+    const badge = document.getElementById('status');
+    
+    if (status === 'on') {
+      badge.className = 'badge on';
+      badge.textContent = 'ON';
+    } else if (status === 'off') {
+      badge.className = 'badge off';
+      badge.textContent = 'OFF';
+    }
   </script>
 </body>
 </html>
